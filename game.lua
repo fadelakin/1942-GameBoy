@@ -14,6 +14,13 @@ function game.load()
 	game.player_size = imgs["player"]:getWidth()
 	game.playerx = (160/2)*scale
 	game.playery = (144-12)*scale
+
+	-- bullet init
+	game.ammo = 10
+	game.recharge_dt = 0
+	game.recharge_rate = 1
+	game.bullet_size = imgs["bullet"]:getWidth()
+	game.bullets = {}
 end
 
 function game.draw()
@@ -43,6 +50,12 @@ function game.draw()
 		game.player_size/2, game.player_size/2)
 	if debug then
 		love.graphics.circle("line", game.playerx, game.playery, game.player_size/2*scale)
+	end
+
+	-- Draw game bullets
+	for _,v in ipairs(game.bullets) do
+		love.graphics.draw(imgs["bullet"], v.x, v.y, 0, scale, scale, game.bullet_size/2, game.bullet_size/2)
+		if debug then love.graphics.circle("line", v.x, v.y, game.bullet_size/2*scale) end
 	end
 end
 
@@ -93,11 +106,46 @@ function game.update(dt)
 	if game.playerx < 0 then
 		game.playerx = 0
 	end
+
+	-- Update bullets
+	for bi, bv in ipairs(game.bullets) do
+		bv.y = bv.y - 100*dt*scale
+		if bv.y < 0 then
+			table.remove(game.bullets, bi)
+		end
+		-- Update bullets with game.enemies
+		for ei, ev in ipairs(game.enemies) do
+			if game.dist(bv.x, bv.y, ev.x, ev.y) < (2+8) * scale then
+				table.remove(game.enemies, ei)
+				table.remove(game.bullets, bi)
+			end
+		end
+	end
+
+	-- Update player ammunition
+	game.recharge_dt = game.recharge_dt + dt
+	if game.recharge_dt > game.recharge_rate then
+		game.recharge_dt = game.recharge_dt - game.recharge_rate
+		game.ammo = game.ammo + 1
+		if game.ammo > 10 then
+			game.ammo = 10
+		end
+	end
 end
 
 function game.keypressed(key)
+	-- Shoot a bullet
+	if key == " " and game.ammo > 0 then
+		love.audio.play(shoot)
+		game.ammo = game.ammo - 1
+		local bullet = {}
+		bullet.x = game.playerx
+		bullet.y = game.playery
+		table.insert(game.bullets, bullet)
+	end
 end
 
+-- Distance formula
 function game.dist(x1,y1,x2,y2)
 	return math.sqrt( (x1 - x2)^2 + (y1 - y2)^2)
 end
