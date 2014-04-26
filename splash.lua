@@ -9,7 +9,7 @@ function splash.draw()
 	love.graphics.setColor(fontcolor.r, fontcolor.g, fontcolor.b)
 	-- Show after 2.5 seconds
 	if splash.dt_temp == 2.5 then
-		love.grahics.printf("Press Start", 0, 80 * scale, love.graphics.getWidth(), "center")
+		love.graphics.printf("Press Start", 0, 80 * scale, love.graphics.getWidth(), "center")
 	end
 	-- Reset the color
 	love.graphics.setColor(255, 255, 255)
