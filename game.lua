@@ -9,6 +9,11 @@ function game.load()
 	game.enemies = {}
 	game.enemy_dt = 0
 	game.enemy_rate = 2
+
+	-- player init
+	game.player_size = imgs["player"]:getWidth()
+	game.playerx = (160/2)*scale
+	game.playery = (144-12)*scale
 end
 
 function game.draw()
@@ -29,6 +34,15 @@ function game.draw()
 			0,scale,scale,
 			game.enemy_size/2, game.enemy_size/2)
 		if debug then love.graphics.circle("line", v.x, v.y, game.enemy_size/2*scale) end
+	end
+
+	-- Draw player
+	love.graphics.draw(imgs["player"],
+		game.playerx, game.playery,
+		0, scale, scale,
+		game.player_size/2, game.player_size/2)
+	if debug then
+		love.graphics.circle("line", game.playerx, game.playery, game.player_size/2*scale)
 	end
 end
 
@@ -56,7 +70,33 @@ function game.update(dt)
 			table.remove(game.enemies, ei)
 		end
 	end
+
+	-- If a player gets too close to enemy
+	if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
+		splash.loud()
+		state = "splash"
+	end
+
+	-- Update player movement
+	if love.keyboard.isDown("right") then
+		game.playerx = game.playerx + 100*dt*scale
+	end
+	if love.keyboard.isDown("left") then
+		game.playerx = game.playerx - 100*dt*scale
+	end
+
+	-- keep the player on the map
+	if game.playerx > 160*scale then
+		game.playerx = 160*scale
+	end
+	if game.playerx < 0 then
+		game.playerx = 0
+	end
 end
 
 function game.keypressed(key)
+end
+
+function game.dist(x1,y1,x2,y2)
+	return math.sqrt( (x1 - x2)^2 + (y1 - y2)^2)
 end
