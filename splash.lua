@@ -13,6 +13,11 @@ function splash.draw()
 	end
 	-- Reset the color
 	love.graphics.setColor(255, 255, 255)
+
+	-- If previous game
+	if game.score ~= 0 then
+		love.graphics.printf("Score:"..game.score,0,96*scale,160*scale,"center")
+	end
 end
 
 function splash.update(dt)

@@ -21,6 +21,9 @@ function game.load()
 	game.recharge_rate = 1
 	game.bullet_size = imgs["bullet"]:getWidth()
 	game.bullets = {}
+
+	-- info init
+	game.score = 0
 end
 
 function game.draw()
@@ -57,6 +60,13 @@ function game.draw()
 		love.graphics.draw(imgs["bullet"], v.x, v.y, 0, scale, scale, game.bullet_size/2, game.bullet_size/2)
 		if debug then love.graphics.circle("line", v.x, v.y, game.bullet_size/2*scale) end
 	end
+
+	-- Draw game info
+	love.graphics.setColor(fontcolor.r, fontcolor.g, fontcolor.b)
+	love.graphics.printf("score:"..game.score..
+						" ammo:"..game.ammo,0,0,love.graphics.getWidth(),"center")
+	if debug then love.graphics.print("enemies: "..#game.enemies.."\nbullets:"..#game.bullets.."\nenemy_rate:"..game.enemy_rate.."\nFPS:"..love.timer.getFPS(),0,14*scale) end
+	love.graphics.setColor(255,255,255)
 end
 
 function game.update(dt)
@@ -116,6 +126,7 @@ function game.update(dt)
 		-- Update bullets with game.enemies
 		for ei, ev in ipairs(game.enemies) do
 			if game.dist(bv.x, bv.y, ev.x, ev.y) < (2+8) * scale then
+				game.score = game.score + 1
 				table.remove(game.enemies, ei)
 				table.remove(game.bullets, bi)
 			end
