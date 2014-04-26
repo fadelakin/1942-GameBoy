@@ -1,4 +1,5 @@
 debug = false
+require('splash')
 
 function love.load()
 
@@ -33,6 +34,9 @@ function love.load()
 	-- initial state
 	state = "splash"
 
+	-- load the splash
+	splash.load()
+
 end
 
 function love.draw()
@@ -46,13 +50,26 @@ function love.draw()
 	-- Return the color back to normal
 	love.graphics.setColor(255, 255, 255)
 
+	-- Call the state's draw function
+	if state == "splash" then
+		splash.draw()
+	end
+
 end
 
 function love.update(dt)
+	-- Call the state's update function
+	if state == "splash" then
+		splash.update(dt)
+	end
 
 end
 
 function love.keypressed(key)
+	-- Call the state's keypressed function
+	if state == "splash" then
+		splash.keypressed(key)
+	end
 	if key == "`" then
 		debug = not debug
 	end
