@@ -7,12 +7,12 @@ end
 
 function game.draw()
 	-- Draw moving background
-	for i = 0, 4 do
-		for j = -1, 4 do
+	for i = 0, 6 do
+		for j = -1, 6 do
 			love.graphics.draw(imgs["background"],
 								i*32*scale,
 								(j+game.clock%1)*32*scale,
-								0, scale, scale)
+								0,scale,scale)
 		end
 	end
 end
