@@ -40,7 +40,7 @@ function game.update(dt)
 	game.enemy_dt = game.enemy_dt + dt
 
 	-- Enemy spawn
-	if game.enemy_dy > game.enemy_rate then
+	if game.enemy_dt > game.enemy_rate then
 		game.enemy_dt = game.enemy_dt - game.enemy_rate
 		game.enemy_rate = game.enemy_rate - 0.01 * game.enemy_rate
 		local enemy = {}
