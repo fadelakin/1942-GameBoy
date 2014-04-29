@@ -147,7 +147,7 @@ end
 function game.keypressed(key)
 	-- Shoot a bullet
 	if key == " " and game.ammo > 0 then
-		--love.audio.play(shoot)
+		love.audio.play(shoot)
 		game.ammo = game.ammo - 1
 		local bullet = {}
 		bullet.x = game.playerx
