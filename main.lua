@@ -16,12 +16,12 @@ function love.load()
 	end
 
 	-- Play music and loop it.
-	music = love.audio.newSource( "assets/music.ogg", "stream")
-	music:setLooping(true)
-	love.audio.play(music)
+	--music = love.audio.newSource( "assets/music.ogg", "stream")
+	--music:setLooping(true)
+	--love.audio.play(music)
 
 	-- load shoot sound
-	shoot = love.audio.newSource( "assets/shoot.ogg", "static")
+	--shoot = love.audio.newSource( "assets/shoot.ogg", "static")
 
 	-- Initialize font, and set it.
 	font = love.graphics.newFont("assets/font.ttf", 14*scale)
