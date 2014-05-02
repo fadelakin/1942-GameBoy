@@ -93,18 +93,12 @@ function game.update(dt)
 			table.remove(game.enemies, ei)
 		end
 
+		-- If a player gets too close to an enemy
 		if game.dist(game.playerx, game.playery, ev.x, ev.y)<(12+8)*scale then
 			splash.load()
 			state = "splash"
 		end
 	end
-
-	-- TODO: FIX THIS SO PLAYER COLLISION DETECTION WORKS
-	-- If a player gets too close to enemy
-	--if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
-	--	splash.load()
-	--	state = "splash"
-	--end
 
 	-- Update player movement
 	if love.keyboard.isDown("right") then
