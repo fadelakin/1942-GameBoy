@@ -94,7 +94,7 @@ function game.update(dt)
 		end
 	end
 
-	-- TODO: FIX THIS SO PLAYER COLLISION DETECTION FUCKING WORKS
+	-- TODO: FIX THIS SO PLAYER COLLISION DETECTION WORKS
 	-- If a player gets too close to enemy
 	--if game.dist(game.playerx,game.playery,ev.x,ev.y) < (12+8)*scale then
 		--splash.load()
