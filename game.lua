@@ -92,13 +92,18 @@ function game.update(dt)
 		if ev.y > 144*scale then
 			table.remove(game.enemies, ei)
 		end
+
+		if game.dist(game.playerx, game.playery, ev.x, ev.y)<(12+8)*scale then
+			splash.load()
+			state = "splash"
+		end
 	end
 
 	-- TODO: FIX THIS SO PLAYER COLLISION DETECTION WORKS
 	-- If a player gets too close to enemy
-	--if game.dist(game.playerx,game.playery,ev.x,ev.y) < (12+8)*scale then
-		--splash.load()
-		--state = "splash"
+	--if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
+	--	splash.load()
+	--	state = "splash"
 	--end
 
 	-- Update player movement
